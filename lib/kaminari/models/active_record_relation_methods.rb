@@ -11,7 +11,7 @@ module Kaminari
     def total_count(column_name = :all, options = {}) #:nodoc:
       # #count overrides the #select which could include generated columns referenced in #order, so skip #order here, where it's irrelevant to the result anyway
       @total_count ||= begin
-        c = except(:offset, :limit, :order)
+        c = except(:offset, :limit, :order, :from)
 
         # Remove includes only if they are irrelevant
         c = c.except(:includes) unless references_eager_loaded_tables?

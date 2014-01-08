@@ -37,6 +37,12 @@ if defined? ActiveRecord
         end
       end
 
+      context 'when the Relation has custom from clause' do
+        specify do
+          lambda { User.from("USE INDEX (default_index)").page(1).total_count }.should_not raise_exception
+        end
+      end
+
       context "when total_count receives options" do
         it "should return a distinct total count for rails < 4.1" do
           if ActiveRecord::VERSION::STRING < "4.1.0"
